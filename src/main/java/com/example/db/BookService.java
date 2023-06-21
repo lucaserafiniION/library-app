@@ -25,5 +25,13 @@ public class BookService {
   
     public void deleteBook(Long id) {  
         bookRepository.deleteById(id);  
-    }  
+    }
+
+	public BookRepository getBookRepository() {
+		return bookRepository;
+	}
+
+	public void setBookRepository(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}  
 }  
