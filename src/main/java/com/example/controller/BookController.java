@@ -1,6 +1,4 @@
 package com.example.controller;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +17,7 @@ import com.example.model.Book;
 @RequestMapping("/books")  
 public class BookController {  
     @Autowired  
-    private BookService bookService;  
-  
-    @GetMapping  
-    public List<Book> getAllBooks() {  
-        return bookService.getAllBooks();  
-    }  
+    private BookService bookService;
   
     @GetMapping("/{id}")  
     public Book getBookById(@PathVariable Long id) {  
@@ -42,7 +35,7 @@ public class BookController {
     }  
   
     @GetMapping  
-    public String getAllBooks(Model model) {  
+    public String getAllBooks(Model model) {
         model.addAttribute("books", bookService.getAllBooks());  
         return "books";  
     }

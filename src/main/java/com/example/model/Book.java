@@ -1,18 +1,22 @@
 package com.example.model;
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;  
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;  
   
 @Entity  
 public class Book {  
     @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private Long id;  
-    private String title;  
-    private String author;  
-    private String genre;  
+    private Long id;
+    
+    private String title;
+    
+    private String author;
+    
+    private String genre;
+    
     private Integer publicationYear;
     
 	public Long getId() {
