@@ -1,0 +1,27 @@
+<!DOCTYPE html>  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">  
+<head>  
+    <meta charset="UTF-8"/>  
+    <title layout:title-pattern="$CONTENT_TITLE - Library">Library</title>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+    <style>  
+        body {  
+            background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');  
+            background-size: cover;
+        }  
+  
+        .navbar {  
+            background-color: #333;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <nav class="navbar navbar-expand-sm">  
+        <a class="navbar-brand text-white" href="#">Book Catalog</a>  
+    </nav>  
+    <section layout:fragment="content" class="container"></section>  
+</body>  
+</html>  

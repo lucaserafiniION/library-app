@@ -1,35 +1,100 @@
 <!DOCTYPE html>  
-<html xmlns:th="http://www.thymeleaf.org">  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">  
 <head>  
     <meta charset="UTF-8">  
-    <title>Edit Book</title>  
+    <title>Add Book</title>  
+    <style>  
+        .form-container {  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            height: 100%;  
+        }  
+  
+        .form-box {  
+            background-color: white;  
+            padding: 20px;  
+            border-radius: 5px;  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
+            width: 400px;  
+        }  
+  
+        .nes-field {  
+            display: flex;  
+            justify-content: space-between;  
+            margin-bottom: 15px;  
+        }  
+  
+        .back-to-books-btn {  
+            display: inline-flex;  
+            align-items: center;  
+            text-decoration: none;  
+        }  
+  
+        .back-to-books-icon {  
+            margin-right: 5px;  
+        }  
+        .back-to-books-btn {  
+		    display: inline-flex;  
+		    align-items: center;  
+		    text-decoration: none;  
+		    background-color: #3a6cb3;  
+		    color: white;  
+		    padding: 5px 10px;  
+		    border-radius: 5px;  
+		    margin-top: 20px;  
+		}      
+    </style>  
+    <script>  
+        function validateForm() {  
+            const title = document.getElementById('title');  
+            const author = document.getElementById('author');  
+            const publicationYear = document.getElementById('publicationYear');  
+            const imageUrl = document.getElementById('imageUrl');  
+            const genre = document.getElementById('genre');  
+  
+            if (!title.value || !author.value || !publicationYear.value || !imageUrl.value || !genre.value) {  
+                alert('Please fill in all fields.');  
+                return false;  
+            }  
+  
+            return true;  
+        }  
+    </script>  
 </head>  
 <body>  
-    <h1>Edit Book</h1>  
-    <form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post">  
-         <input type="hidden" th:field="*{id}" />  
-        <div class="nes-field">  
-            <label for="title">Title:</label>  
-            <input type="text" id="title" class="nes-input" th:field="*{title}" />  
+<section layout:fragment="content" class="container">  
+    <h1>Add Book</h1>  
+    <div class="form-container">  
+        <div class="form-box">  
+            <form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post" onsubmit="return validateForm();">  
+                <div class="nes-field">  
+                    <label for="title">Title:</label>  
+                    <input type="text" id="title" class="nes-input" th:field="*{title}" />  
+                </div>  
+                <div class="nes-field">  
+                    <label for="author">Author:</label>  
+                    <input type="text" id="author" class="nes-input" th:field="*{author}" />  
+                </div>  
+                <div class="nes-field">  
+                    <label for="publicationYear">Year:</label>  
+                    <input type="text" id="publicationYear" class="nes-input" th:field="*{publicationYear}" />  
+                </div>  
+                <div class="nes-field">  
+                    <label for="imageUrl">Cover Image URL:</label>  
+                    <input type="text" id="imageUrl" class="nes-input" th:field="*{imageUrl}" />  
+                </div>  
+                <div class="nes-field">  
+                    <label for="genre">Genre:</label>  
+                    <input type="text" id="genre" class="nes-input" th:field="*{genre}" />  
+                </div>  
+                <button type="submit" class="nes-btn is-primary back-to-books-btn">Edit</button>  
+            </form> 
+		    <a href="/books" class="back-to-books-btn">  
+			    <span class="back-to-books-icon">&larr;</span> Back to Books  
+			</a>   
         </div>  
-        <div class="nes-field">  
-            <label for="author">Author:</label>  
-            <input type="text" id="author" class="nes-input" th:field="*{author}" />  
-        </div>  
-        <div class="nes-field">  
-            <label for="year">Year:</label>  
-            <input type="text" id="publicationYear" class="nes-input" th:field="*{publicationYear}" />  
-        </div>  
-        <div class="nes-field"> <!-- Aggiungi questo campo per l'URL dell'immagine di copertina -->  
-            <label for="imageUrl">Cover Image URL:</label>  
-            <input type="text" id="imageUrl" class="nes-input" th:field="*{imageUrl}" />  
-        </div>
-        <div class="nes-field">
-            <label for="genre">Genre:</label>  
-            <input type="text" id="genre" class="nes-input" th:field="*{genre}" />  
-        </div> 
-        <button type="submit">Update Book</button>  
-    </form>  
-    <a href="/books">Back to Books</a>  
+    </div> 
+</section>  
 </body>  
-</html>  
+</html>

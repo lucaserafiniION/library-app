@@ -1,22 +1,8 @@
 <!DOCTYPE html>  
-<html xmlns:th="http://www.thymeleaf.org">  
-<head>  
-    <meta charset="UTF-8"/>  
-    <title>Book Catalog</title>  
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
-    <style>  
-        body {  
-            background-image: url('https://media.istockphoto.com/id/1085611376/it/foto/sfondo-texture-carta-in-tono-crema-chiaro.jpg?s=1024x1024&w=is&k=20&c=JGs37jwbu93HUYTZRsgmdC4oW2fn-d2KLpCB36UKpyU=');  
-            background-size: cover;  
-        }  
-  
-        .navbar {  
-            background-color: #333;  
-        }  
-  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}"> 
+<head>
+    <title>Book Catalog</title> 
+    <style>
         .book-card {  
             position: relative;  
             width: 200px;  
@@ -80,10 +66,7 @@
     </style>  
 	</head>
 	<body>
-    <nav class="navbar navbar-expand-sm">  
-        <a class="navbar-brand text-white" href="#">Book Catalog</a>  
-    </nav> 
-		<div class="container">
+		<section layout:fragment="content" class="container">  
             <div th:each="book : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  
                     <div class="book-title" th:text="${book.title}"></div>
@@ -99,7 +82,8 @@
 							</a>
                     </div>  
                 </div>
-		</div>
-        <a th:href="@{/books/add}" class="add-book-btn">+</a> 
+			</div>
+        	<a th:href="@{/books/add}" class="add-book-btn">+</a>
+        </section> 
 	</body>
 </html>
