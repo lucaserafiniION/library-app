@@ -19,6 +19,8 @@ public class Book {
     
     private Integer publicationYear;
     
+    private String imageUrl;
+    
 	public Long getId() {
 		return id;
 	}
@@ -48,5 +50,11 @@ public class Book {
 	}
 	public void setPublicationYear(Integer publicationYear) {
 		this.publicationYear = publicationYear;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }  

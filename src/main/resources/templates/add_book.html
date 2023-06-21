@@ -7,19 +7,23 @@
 <body>  
     <h1>Add Book</h1>  
     <form th:action="@{/books/add}" th:object="${book}" method="post">  
-        <label for="title">Title:</label>  
-        <input type="text" id="title" name="title" th:value="${book.title}" required>  
-        <br>  
-        <label for="author">Author:</label>  
-        <input type="text" id="author" name="author" th:value="${book.author}" required>  
-        <br>  
-        <label for="genre">Genre:</label>  
-        <input type="text" id="genre" name="genre" th:value="${book.genre}" required>  
-        <br>  
-        <label for="publicationYear">Publication Year:</label>  
-        <input type="number" id="publicationYear" name="publicationYear" th:value="${book.publicationYear}">  
-        <br>  
-        <button type="submit">Add Book</button>  
+        <div class="nes-field">  
+            <label for="title">Title:</label>  
+            <input type="text" id="title" class="nes-input" th:field="*{title}" />  
+        </div>  
+        <div class="nes-field">  
+            <label for="author">Author:</label>  
+            <input type="text" id="author" class="nes-input" th:field="*{author}" />  
+        </div>  
+        <div class="nes-field">  
+            <label for="publicationYear">Year:</label>  
+            <input type="text" id="publicationYear" class="nes-input" th:field="*{publicationYear}" />  
+        </div>  
+        <div class="nes-field"> <!-- Aggiungi questo campo per l'URL dell'immagine di copertina -->  
+            <label for="imageUrl">Cover Image URL:</label>  
+            <input type="text" id="imageUrl" class="nes-input" th:field="*{imageUrl}" />  
+        </div>  
+        <button type="submit" class="nes-btn is-primary">Add</button>  
     </form>  
     <a href="/books">Back to Books</a>  
 </body>  
