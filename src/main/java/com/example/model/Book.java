@@ -57,4 +57,9 @@ public class Book {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", genre=" + genre + ", publicationYear="
+				+ publicationYear + ", imageUrl=" + imageUrl + "]";
+	}
 }  

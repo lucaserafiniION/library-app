@@ -1,42 +1,105 @@
 <!DOCTYPE html>  
-<html xmlns:th="http://www.thymeleaf.org"  
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  
-      layout:decorate="~{layout}"> <!-- Usa il layout.html -->  
-<body>  
-    <main layout:fragment="content">
-		<div class="nes-container with-title is-rounded">  
-		    <p class="title">Books</p>  
-		    <table class="nes-table is-bordered is-centered">  
-		        <thead>  
-		            <tr>  
-		                <th>ID</th>  
-		                <th>Title</th>  
-		                <th>Author</th>  
-		                <th>Year</th>  
-		                <th>Cover</th> <!-- Aggiungi questa colonna -->  
-		                <th>Genre</th>    
-		                <th>Actions</th>  
-		            </tr>  
-		        </thead>  
-		        <tbody>  
-		            <tr th:each="book : ${books}">  
-		                <td th:text="${book.id}"></td>  
-		                <td th:text="${book.title}"></td>  
-		                <td th:text="${book.author}"></td>  
-		                <td th:text="${book.publicationYear}"></td>  
-		                <td> <!-- Aggiungi questa cella -->  
-		                    <img class="nes-avatar" src="${book.imageUrl}" alt="Copertina del libro ${book.title}" />  
-		                </td>
-		                <td th:text="${book.genre}"></td> 
-		                <td>  
-		                    <a th:href="@{'/books/edit/' + ${book.id}}" class="nes-btn is-primary">Edit</a>  
-		                    <a th:href="@{'/books/deleteBook/' + ${book.id}}" class="nes-btn is-error">Delete</a>  
-		                </td>  
-		            </tr>  
-		        </tbody>  
-		    </table>  
-		</div> 
-	</main>  
-</body>  
-
+<html xmlns:th="http://www.thymeleaf.org">  
+<head>  
+    <meta charset="UTF-8"/>  
+    <title>Book Catalog</title>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
+    <style>  
+        body {  
+            background-image: url('https://media.istockphoto.com/id/1085611376/it/foto/sfondo-texture-carta-in-tono-crema-chiaro.jpg?s=1024x1024&w=is&k=20&c=JGs37jwbu93HUYTZRsgmdC4oW2fn-d2KLpCB36UKpyU=');  
+            background-size: cover;  
+        }  
+  
+        .navbar {  
+            background-color: #333;  
+        }  
+  
+        .book-card {  
+            position: relative;  
+            width: 200px;  
+            height: 300px;  
+            margin: 20px;  
+            background-size: cover;  
+            background-position: center;  
+            display: inline-block;  
+            overflow: hidden;  
+        }  
+  
+        .book-info {  
+            position: absolute;  
+            bottom: 0;  
+            width: 100%;  
+            height: 100%;  
+            background: rgba(0, 0, 0, 0.5);  
+            color: white;  
+            padding: 10px;  
+            opacity: 0;  
+            transition: opacity 0.3s;  
+        }  
+  
+        .book-card:hover .book-info {  
+            opacity: 1;  
+        }  
+  
+        .book-title {  
+            font-weight: bold;  
+            font-size: 18px;  
+        }  
+  
+        .book-actions {  
+            position: absolute;  
+            bottom: 10px;  
+            right: 10px;  
+        }  
+  
+        .add-book-btn {  
+            position: fixed;  
+            bottom: 20px;  
+            right: 20px;  
+            width: 60px;  
+            height: 60px;  
+            border-radius: 50%;  
+            background-color: lightblue;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            font-size: 30px;  
+            color: white;  
+            text-decoration: none;  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
+        }  
+  
+        .add-book-btn:hover {  
+            text-decoration: none;  
+            color: white;  
+            background-color: dodgerblue;  
+        }   
+    </style>  
+	</head>
+	<body>
+    <nav class="navbar navbar-expand-sm">  
+        <a class="navbar-brand text-white" href="#">Book Catalog</a>  
+    </nav> 
+		<div class="container">
+            <div th:each="book : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
+                <div class="book-info">  
+                    <div class="book-title" th:text="${book.title}"></div>
+                    <div>Author: <span th:text="${book.author}"></span></div>  
+                    <div>Publication Year: <span th:text="${book.publicationYear}"></span></div>  
+                    <div>Genre: <span th:text="${book.genre}"></span></div>  
+                    <div class="book-actions">  
+							<a th:href="@{/books/edit/{id}(id=${book.id})}">
+								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit"/>
+							</a>
+							<a th:href="@{/books/delete/{id}(id=${book.id})}">
+								<img src="https://img.icons8.com/material-outlined/24/000000/delete-forever.png" alt="Delete"/>
+							</a>
+                    </div>  
+                </div>
+		</div>
+        <a th:href="@{/books/add}" class="add-book-btn">+</a> 
+	</body>
 </html>

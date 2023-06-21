@@ -1,4 +1,6 @@
 package com.example.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +31,18 @@ public class BookController {
         return bookService.saveOrUpdateBook(book);  
     }
   
-    @DeleteMapping("/{id}")  
-    public void deleteBook(@PathVariable Long id) {  
-        bookService.deleteBook(id);  
+    @GetMapping("/delete/{id}")  
+    public String deleteBook(@PathVariable Long id, Model model) {  
+        bookService.deleteBook(id); 
+        List<Book> allBooks = bookService.getAllBooks();
+		model.addAttribute("books", allBooks);  
+        return "books"; 
     }  
   
     @GetMapping  
     public String getAllBooks(Model model) {
-        model.addAttribute("books", bookService.getAllBooks());  
+        List<Book> allBooks = bookService.getAllBooks();
+		model.addAttribute("books", allBooks);  
         return "books";  
     }
     
