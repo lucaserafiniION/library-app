@@ -92,7 +92,8 @@
 		    border-radius: 5px;  
 		    margin-top: 20px;   
 		} 
-    </style>  
+    </style> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
         <section layout:fragment="searchbox">
@@ -108,6 +109,7 @@
                     <div>Publication Year: <span th:text="${book.publicationYear}"></span></div>  
                     <div>Genre: <span th:text="${book.genre}"></span></div>  
                     <div class="book-actions">  
+                    		<div class="rating-stars" th:attr="data-book-id=${book.id}"></div>
 							<a th:href="@{/books/edit/{id}(id=${book.id})}">
 								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit" class="icon-white"/>
 							</a>
@@ -118,6 +120,39 @@
                 </div>
 			</div>
         	<a th:href="@{/books/add}" class="add-book-btn">+</a>
+			<script>  
+			  function renderRatingStars(rating) {  
+				    const fullStar = '<span style="color: gold;">★</span>';  
+				    const emptyStar = '<span style="color: lightgrey;">★</span>';  
+				    const stars = [];
+				  
+				    for (let i = 1; i <= 5; i++) {  
+				      if (i <= Math.round(rating)) {  
+				        stars.push(fullStar);  
+				      } else {  
+				        stars.push(emptyStar);  
+				      }  
+				    }  
+				  
+				    return stars.join('');  
+				  }  
+			 function loadAverageRatings() {  
+			    $('.rating-stars').each(function() {  
+			      const bookId = $(this).data('book-id');  
+			      const apiUrl = '/api/ratings/books/' + bookId + '/average';  
+			  
+			      $.get(apiUrl, (averageRating) => {  
+			        const ratingStars = renderRatingStars(averageRating);  
+			        $(this).html(ratingStars);  
+			      }).fail(() => {  
+			        $(this).html('No ratings');  
+			      });  
+			    });  
+			  }  
+			  
+			  // Carica i rating medi quando la pagina viene caricata  
+			  $(document).ready(loadAverageRatings); 
+			</script>
         </section> 
-	</body>
+	</body>  	
 </html>

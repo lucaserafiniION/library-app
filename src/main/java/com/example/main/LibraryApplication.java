@@ -50,6 +50,7 @@ public class LibraryApplication {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
+						.requestMatchers("/api/*/*/*/*").permitAll()
 						.requestMatchers("/books").permitAll()
 						.requestMatchers("/books/search").permitAll()
 						.requestMatchers("/books/add").hasAnyRole("ADMIN", "USER")
