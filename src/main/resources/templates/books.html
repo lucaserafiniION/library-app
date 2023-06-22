@@ -5,8 +5,8 @@
     <style>
         .book-card {  
             position: relative;  
-            width: 200px;  
-            height: 300px;  
+            width: 250px;  
+            height: 400px;  
             margin: 20px;  
             background-size: cover;  
             background-position: center;  
@@ -63,10 +63,39 @@
             color: white;  
             background-color: dodgerblue;  
         }   
+  
+        .catalog-container {  
+          background-color: rgba(255, 255, 255, 0.7); /* Bianco con opacità 70% */  
+          padding: 20px;  
+          border-radius: 5px; /* Arrotonda gli angoli del riquadro */  
+		  position: fixed; /* Nuova proprietà per espandere il riquadro su tutta la pagina */  
+		  top: 0;  
+		  left: 0;  
+		  right: 0;  
+		  bottom: 0;  
+		  overflow: auto; /* Aggiunto per gestire lo scrolling del contenuto */  
+  		  margin-top: 60px; /* Nuova proprietà per spostare il riquadro sotto la navbar. Modifica questo valore in base all'altezza della tua navbar */  
+        }  
+        
+        .icon-white {  
+		  filter: invert(1); /* Inverte i colori dell'immagine */ 
+		    padding: 5px 10px;  
+		    border-radius: 5px;  
+		    margin-top: 20px;   
+		}   
+		
+        .icon-white:hover {  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
+		    background-color: #3a6cb3;  
+		    color: white;  
+		    padding: 5px 10px;  
+		    border-radius: 5px;  
+		    margin-top: 20px;   
+		} 
     </style>  
 	</head>
 	<body>
-		<section layout:fragment="content" class="container">  
+		<section layout:fragment="content" class="container catalog-container">  
             <div th:each="book : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  
                     <div class="book-title" th:text="${book.title}"></div>
@@ -75,10 +104,10 @@
                     <div>Genre: <span th:text="${book.genre}"></span></div>  
                     <div class="book-actions">  
 							<a th:href="@{/books/edit/{id}(id=${book.id})}">
-								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit"/>
+								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit" class="icon-white"/>
 							</a>
 							<a th:href="@{/books/delete/{id}(id=${book.id})}">
-								<img src="https://img.icons8.com/material-outlined/24/000000/delete-forever.png" alt="Delete"/>
+								<img src="https://img.icons8.com/material-outlined/24/000000/delete-forever.png" alt="Delete" class="icon-white"/>
 							</a>
                     </div>  
                 </div>
