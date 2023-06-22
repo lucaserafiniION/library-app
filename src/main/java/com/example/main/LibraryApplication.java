@@ -51,7 +51,7 @@ public class LibraryApplication {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
 						.requestMatchers("/books").permitAll()
-						.requestMatchers("/books/add").permitAll()
+						.requestMatchers("/books/add").hasRole("USER")
 						.requestMatchers("/books/edit/*").hasRole("ADMIN")
 						.requestMatchers("/books/delete/*").hasRole("ADMIN"))
 				.formLogin(form -> form.loginPage("/login")
