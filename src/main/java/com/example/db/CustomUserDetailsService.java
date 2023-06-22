@@ -21,11 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        System.out.println("Email: " + email);
-        
         User user = userRepository.findUserByEmail(email);
-
-        System.out.println("Found: " + user);
         
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
