@@ -21,13 +21,14 @@
         a:hover {  
 		  color: grey;
 		  text-decoration: none;    
-		} 
+		}
     </style>  
 </head>  
 <body>  
     <nav class="navbar navbar-expand-sm">  
         <a class="navbar-brand text-white" href="#">Book Catalog</a>
         <a href="/logout">Logout</a>
+        <section layout:fragment="searchbox"></section>
     </nav>  
     <section layout:fragment="content" class="container"></section>  
 </body>  

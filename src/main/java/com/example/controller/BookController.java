@@ -1,5 +1,6 @@
 package com.example.controller;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.db.BookService;
 import com.example.model.Book;  
@@ -69,5 +71,11 @@ public class BookController {
         book.setId(id);  
         bookService.saveOrUpdateBook(book);  
         return "redirect:/books";  
-    }  
+    }
+
+    @GetMapping("/search")
+    public String searchBook(@RequestParam Map<String, String> params, Model model) {
+        model.addAttribute("books", bookService.getBooksByField(params.get("query")));
+        return "books";
+    }
 }  

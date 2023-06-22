@@ -95,6 +95,11 @@
     </style>  
 	</head>
 	<body>
+        <section layout:fragment="searchbox">
+            <form th:action="@{/books/search}" method="get">
+                <input type="text" name="query" id="query" placeholder="Search.."/>
+            </form>
+        </section> 
 		<section layout:fragment="content" class="container catalog-container">  
             <div th:each="book : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  
