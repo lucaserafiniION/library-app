@@ -1,9 +1,14 @@
 package com.example.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;  
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;  
   
 @Entity  
 public class Book {  
@@ -20,6 +25,9 @@ public class Book {
     private Integer publicationYear;
     
     private String imageUrl;
+    
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Rating> ratings = new HashSet<>();
     
 	public Long getId() {
 		return id;
@@ -61,5 +69,11 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", genre=" + genre + ", publicationYear="
 				+ publicationYear + ", imageUrl=" + imageUrl + "]";
+	}
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 }  

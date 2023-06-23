@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;  
   
 @Entity  
@@ -14,12 +16,14 @@ public class Rating {
     @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;  
-  
-    @Column(name = "user_id")  
-    private Long userId;  
-  
-    @Column(name = "book_id")  
-    private Long bookId;  
+
+    @ManyToOne  
+    @JoinColumn(name = "user_id")
+    private User user;  
+   
+    @ManyToOne  
+    @JoinColumn(name = "book_id") 
+    private Book book;  
   
     @Column(name = "rating")  
     private Integer rating;  
@@ -37,20 +41,20 @@ public class Rating {
         this.id = id;  
     }  
   
-    public Long getUserId() {  
-        return userId;  
+    public User getUser() {  
+        return user;  
     }  
   
-    public void setUserId(Long userId) {  
-        this.userId = userId;  
+    public void setUser(User user) {  
+        this.user = user;  
     }  
   
-    public Long getBookId() {  
-        return bookId;  
+    public Book getBook() {  
+        return book;  
     }  
   
-    public void setBookId(Long bookId) {  
-        this.bookId = bookId;  
+    public void setBook(Book book) {  
+        this.book = book;  
     }  
   
     public Integer getRating() {  

@@ -1,4 +1,6 @@
 package com.example.controller;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,13 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.db.BookService;
-import com.example.model.Book;  
+import com.example.db.RatingService;
+import com.example.db.UserService;
+import com.example.model.Book;
+import com.example.model.Rating;
+import com.example.model.User;  
   
 @Controller  
 @RequestMapping("/books")  
 public class BookController {  
     @Autowired  
     private BookService bookService;
+    @Autowired  
+    private UserService userService;
+    @Autowired  
+    private RatingService ratingService;
   
     @GetMapping("/{id}")  
     public Book getBookById(@PathVariable Long id) {  
@@ -43,6 +53,21 @@ public class BookController {
     @GetMapping  
     public String getAllBooks(Model model) {
         List<Book> allBooks = bookService.getAllBooks();
+        List<Double> sumOfRatings = new ArrayList<>();  
+        List<Integer> countOfRatings = new ArrayList<>();  
+        for (Book book : allBooks) {  
+            double sum = 0;  
+            int count = 0;  
+            for (Rating rating : book.getRatings()) {  
+                sum += rating.getRating();  
+                count++;  
+            }  
+            sumOfRatings.add(sum);  
+            countOfRatings.add(count);  
+        }  
+       
+        model.addAttribute("sumOfRatings", sumOfRatings);  
+        model.addAttribute("countOfRatings", countOfRatings); 
 		model.addAttribute("books", allBooks);  
         return "books";  
     }
@@ -77,5 +102,15 @@ public class BookController {
     public String searchBook(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("books", bookService.getBooksByField(params.get("query")));
         return "books";
+    }
+    
+    @PostMapping("/rate") 
+    public String rateBook(@RequestParam Long bookId, @RequestParam int rating, Principal principal) {
+        String username = principal.getName();  
+        User user = userService.findUserByEmail(username);  
+        
+        ratingService.addRating(bookId, user, rating);  
+       
+        return "redirect:/books";  
     }
 }  

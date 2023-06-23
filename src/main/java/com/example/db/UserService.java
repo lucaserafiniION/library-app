@@ -15,4 +15,8 @@ public class UserService {
     	user.setPassword(LibraryApplication.passwordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
+    
+    public User findUserByEmail(String email) {
+    	return userRepository.findUserByEmail(email);
+    }
 }

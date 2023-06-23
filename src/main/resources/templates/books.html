@@ -102,14 +102,19 @@
             </form>
         </section> 
 		<section layout:fragment="content" class="container catalog-container">  
-            <div th:each="book : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
+            <div th:each="book, iterStat : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  
                     <div class="book-title" th:text="${book.title}"></div>
                     <div>Author: <span th:text="${book.author}"></span></div>  
                     <div>Publication Year: <span th:text="${book.publicationYear}"></span></div>  
                     <div>Genre: <span th:text="${book.genre}"></span></div>  
+                    <form action="/books/rate" method="post" class="rating-form">
+                    	<input type="hidden" name="rating" class="rating-input" />
+                    	<input type="hidden" name="bookId" th:attr="value=${book.id}" />
+	                    <div class="rating-stars" th:if="${countOfRatings[iterStat.index] > 0}" th:attr="data-book-rating=${sumOfRatings[iterStat.index] / countOfRatings[iterStat.index]}"></div>
+	                    <div class="rating-stars" th:if="${countOfRatings[iterStat.index] == 0}">Nessun voto</div>  
+					</form>
                     <div class="book-actions">  
-                    		<div class="rating-stars" th:attr="data-book-id=${book.id}"></div>
 							<a th:href="@{/books/edit/{id}(id=${book.id})}">
 								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit" class="icon-white"/>
 							</a>
@@ -121,36 +126,38 @@
 			</div>
         	<a th:href="@{/books/add}" class="add-book-btn">+</a>
 			<script>  
+				function handleStarClick(starIndex, element) {   
+				    const rating = starIndex;  
+				    const form = element.parentElement.parentElement;  
+				    form.getElementsByClassName('rating-input')[0].value = rating;
+				    form.submit();  
+				} 
 			  function renderRatingStars(rating) {  
-				    const fullStar = '<span style="color: gold;">★</span>';  
-				    const emptyStar = '<span style="color: lightgrey;">★</span>';  
-				    const stars = [];
+				    const fullStar = '<span style="color: gold;"';  
+				    const emptyStar = '<span style="color: lightgrey;"';  
+				    const endStar = '>★</span>';
+				    const stars = []; 
 				  
-				    for (let i = 1; i <= 5; i++) {  
+				    for (let i = 1; i <= 5; i++) { 
+				      completeStar = ''; 
 				      if (i <= Math.round(rating)) {  
-				        stars.push(fullStar);  
+				        completeStar = fullStar + ' onClick="handleStarClick(' + i + ', this)"' + endStar;  
 				      } else {  
-				        stars.push(emptyStar);  
+				        completeStar = emptyStar + ' onClick="handleStarClick(' + i + ', this)"' + endStar;
 				      }  
+				      stars.push(completeStar);  
 				    }  
 				  
-				    return stars.join('');  
+				    return stars.join(''); 
 				  }  
 			 function loadAverageRatings() {  
 			    $('.rating-stars').each(function() {  
-			      const bookId = $(this).data('book-id');  
-			      const apiUrl = '/api/ratings/books/' + bookId + '/average';  
+			      const averageRating = $(this).data('book-rating'); 
+			      const ratingStars = renderRatingStars(averageRating);  
+        		  $(this).html(ratingStars); 
+			    });   
+			  }
 			  
-			      $.get(apiUrl, (averageRating) => {  
-			        const ratingStars = renderRatingStars(averageRating);  
-			        $(this).html(ratingStars);  
-			      }).fail(() => {  
-			        $(this).html('No ratings');  
-			      });  
-			    });  
-			  }  
-			  
-			  // Carica i rating medi quando la pagina viene caricata  
 			  $(document).ready(loadAverageRatings); 
 			</script>
         </section> 

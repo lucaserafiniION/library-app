@@ -1,8 +1,8 @@
 <!DOCTYPE html>  
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">  
 <head>  
-    <meta charset="UTF-8">  
-    <title>Edit Book</title>  
+    <meta charset="UTF-8">
+    <title>Edit book</title>
     <style>  
         .form-container {  
             display: flex;  
@@ -63,8 +63,7 @@
     </script>  
 </head>  
 <body>  
-<section layout:fragment="content" class="container">  
-    <h1>Edit Book</h1>  
+<section layout:fragment="content" class="container">
     <div class="form-container">  
         <div class="form-box">  
             <form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post" onsubmit="return validateForm();">  

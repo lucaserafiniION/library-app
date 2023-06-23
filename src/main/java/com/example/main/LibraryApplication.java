@@ -11,11 +11,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import com.example.db.CustomUserDetailsService;
 import com.example.db.UserRepository;
@@ -50,9 +50,9 @@ public class LibraryApplication {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
-						.requestMatchers("/api/*/*/*/*").permitAll()
 						.requestMatchers("/books").permitAll()
 						.requestMatchers("/books/search").permitAll()
+						.requestMatchers("/books/rate/**").hasAnyRole("ADMIN", "USER")
 						.requestMatchers("/books/add").hasAnyRole("ADMIN", "USER")
 						.requestMatchers("/books/edit/*").hasRole("ADMIN")
 						.requestMatchers("/books/delete/*").hasRole("ADMIN"))
