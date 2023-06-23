@@ -12,4 +12,9 @@ import com.example.model.Book;
 public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT b.* FROM library.book b WHERE CONCAT(b.author, b.genre, b.title) LIKE %:field%", nativeQuery = true)
     List<Book> findBookByField(@Param("field") String field);
+
+    List<Book> findBookByGenre(@Param("genre") String genre);
+
+    @Query(value = "SELECT DISTINCT b.genre FROM library.book b", nativeQuery = true)
+    List<String> findDistinctGenre();
 }  

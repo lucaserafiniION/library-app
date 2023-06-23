@@ -60,7 +60,8 @@ public class BookController {
 
 	private void addBooksField(Model model, List<Book> allBooks) {
 		List<Double> sumOfRatings = new ArrayList<>();  
-        List<Integer> countOfRatings = new ArrayList<>();  
+        List<Integer> countOfRatings = new ArrayList<>();
+        List<String> genres = bookService.getAllGenre(); 
         for (Book book : allBooks) {  
             double sum = 0;  
             int count = 0;  
@@ -75,6 +76,7 @@ public class BookController {
         model.addAttribute("sumOfRatings", sumOfRatings);  
         model.addAttribute("countOfRatings", countOfRatings);
 		model.addAttribute("books", allBooks); 
+        model.addAttribute("genres", genres);
 	}
     
     @GetMapping("/add")  
@@ -106,6 +108,15 @@ public class BookController {
     @GetMapping("/search")
     public String searchBook(@RequestParam Map<String, String> params, Model model) {
         List<Book> allBooks = bookService.getBooksByField(params.get("query"));
+        
+        addBooksField(model, allBooks);
+        
+        return "books";
+    }
+
+    @GetMapping("/search/genre")
+    public String searchBookByGenre(@RequestParam Map<String, String> params, Model model) {
+        List<Book> allBooks = bookService.getBooksByGenre(params.get("genre"));
         
         addBooksField(model, allBooks);
         

@@ -97,10 +97,20 @@
 	</head>
 	<body>
         <section layout:fragment="searchbox">
-            <form th:action="@{/books/search}" method="get">
+          <form th:action="@{/books/search}" method="get">
                 <input type="text" name="query" id="query" placeholder="Search.."/>
             </form>
-        </section> 
+        </section>
+        <section layout:fragment="searcgenre">
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select a genre
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a th:each="genre : ${genres}" th:href="@{/books/search/genre?genre={genre}(genre=${genre})}" th:text="${genre}" style="color:black;"></a>
+              </div>
+            </div>
+        </section>
 		<section layout:fragment="content" class="container catalog-container">  
             <div th:each="book, iterStat : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  

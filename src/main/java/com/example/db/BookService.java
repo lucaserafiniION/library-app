@@ -15,8 +15,16 @@ public class BookService {
         return bookRepository.findAll();  
     }
 
+    public List<String> getAllGenre() {
+        return bookRepository.findDistinctGenre();
+    }
+
     public List<Book> getBooksByField(String field) {
         return bookRepository.findBookByField(field);
+    }
+
+    public List<Book> getBooksByGenre(String genre) {
+        return bookRepository.findBookByGenre(genre);
     }
   
     public Book getBookById(Long id) {  

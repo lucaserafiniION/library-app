@@ -50,6 +50,7 @@ public class LibraryApplication {
 		http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.antMatchers("/register/**").permitAll()
 						.antMatchers("/books").permitAll()
 						.antMatchers("/books/search").permitAll()
+						.antMatchers("/books/search/genre").permitAll()
 						.antMatchers("/books/rate").hasAnyRole("ADMIN", "USER")
 						.antMatchers("/books/add").hasAnyRole("ADMIN", "USER")
 						.antMatchers("/books/edit/*").hasRole("ADMIN")
