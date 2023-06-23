@@ -3,6 +3,11 @@
 <head>
     <title>Book Catalog</title> 
     <style>
+    	.book-card-container {  
+			display: flex;  
+			flex-wrap: wrap; 
+		}
+		
         .book-card {  
             position: relative;  
             width: 250px;  
@@ -11,7 +16,10 @@
             background-size: cover;  
             background-position: center;  
             display: inline-block;  
-            overflow: hidden;  
+            overflow: hidden; 
+			flex-grow: 1;
+            margin: 20px 10px;   
+			min-width: 250px;
         }  
   
         .book-info {  
@@ -112,6 +120,7 @@
             </div>
         </section>
 		<section layout:fragment="content" class="container catalog-container">  
+			<div class="book-card-container"> 
             <div th:each="book, iterStat : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
                 <div class="book-info">  
                     <div class="book-title" th:text="${book.title}"></div>
@@ -133,6 +142,7 @@
 							</a>
                     </div>  
                 </div>
+			</div>
 			</div>
         	<a th:href="@{/books/add}" class="add-book-btn">+</a>
 			<script>  
