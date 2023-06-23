@@ -38,6 +38,27 @@
 	  .search-box {  
 	    margin-right: 1rem;  
 	  } 
+	  /* Nasconde la scrollbar per dispositivi WebKit */  
+		::-webkit-scrollbar {  
+		    width: 12px;  
+		}  
+		  
+		/* Personalizza il tracciato della scrollbar */  
+		::-webkit-scrollbar-track {  
+		    background-color: #F0F0F0;  
+		    border-radius: 10px;  
+		}  
+		  
+		/* Personalizza la barra di scorrimento */  
+		::-webkit-scrollbar-thumb {  
+		    background-color: #A0A0A0;  
+		    border-radius: 10px;  
+		}  
+		  
+		/* Aggiunge un effetto hover alla barra di scorrimento */  
+		::-webkit-scrollbar-thumb:hover {  
+		    background-color: #909090;  
+		}  
     </style>  
 </head>  
 <body>  
