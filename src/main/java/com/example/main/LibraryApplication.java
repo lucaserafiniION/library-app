@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import com.example.db.CustomUserDetailsService;
 import com.example.db.UserRepository;
@@ -48,14 +47,13 @@ public class LibraryApplication {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
-						.requestMatchers("/books").permitAll()
-						.requestMatchers("/books/search").permitAll()
-						.requestMatchers("/books/rate/**").hasAnyRole("ADMIN", "USER")
-						.requestMatchers("/books/add").hasAnyRole("ADMIN", "USER")
-						.requestMatchers("/books/edit/*").hasRole("ADMIN")
-						.requestMatchers("/books/delete/*").hasRole("ADMIN"))
+		http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.antMatchers("/register/**").permitAll()
+						.antMatchers("/books").permitAll()
+						.antMatchers("/books/search").permitAll()
+						.antMatchers("/books/rate").hasAnyRole("ADMIN", "USER")
+						.antMatchers("/books/add").hasAnyRole("ADMIN", "USER")
+						.antMatchers("/books/edit/*").hasRole("ADMIN")
+						.antMatchers("/books/delete/*").hasRole("ADMIN"))
 				.formLogin(form -> form.loginPage("/login")
 						.loginProcessingUrl("/login")
 						.defaultSuccessUrl("/books")

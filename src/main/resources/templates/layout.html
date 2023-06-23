@@ -1,5 +1,5 @@
 <!DOCTYPE html>  
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">  
 <head>  
     <meta charset="UTF-8"/>  
     <title layout:title-pattern="$CONTENT_TITLE - Library">Library</title>  
@@ -17,18 +17,38 @@
             background-color: #333; 
             height: 60px; 
         }
-        
+        a {
+        	color: white;
+        }
         a:hover {  
 		  color: grey;
 		  text-decoration: none;    
-		}
+		}  
+	  .btn-login {  
+	    background-color: blue;  
+	    border-radius: 5px;  
+	    color: white;  
+	    padding: 5px 10px;  
+	  }  
+	  .btn-login:hover {  
+	    background-color: darkblue;  
+	    text-decoration: none;  
+	    color: white;  
+	  }  
+	  .search-box {  
+	    margin-right: 1rem;  
+	  } 
     </style>  
 </head>  
 <body>  
     <nav class="navbar navbar-expand-sm">  
-        <a class="navbar-brand text-white" href="#">Book Catalog</a>
-        <a href="/logout">Logout</a>
-        <section layout:fragment="searchbox"></section>
+        <a class="navbar-brand text-white" href="/">Book Catalog</a>
+        <a class="text-white ml-2" href="/books">Books</a> 
+        <div class="ml-auto d-flex">  
+        	<section layout:fragment="searchbox" class="search-box"></section>
+            <a sec:authorize="isAuthenticated()" href="/logout">Logout</a>  
+            <a sec:authorize="!isAuthenticated()" href="/login">Login</a>  
+        </div>  
     </nav>  
     <section layout:fragment="content" class="container"></section>  
 </body>  
