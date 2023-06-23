@@ -133,7 +133,10 @@
 	                    <div class="rating-stars" th:if="${countOfRatings[iterStat.index] > 0}" th:attr="data-book-rating=${sumOfRatings[iterStat.index] / countOfRatings[iterStat.index]}"></div>
 	                    <div class="rating-stars" th:if="${countOfRatings[iterStat.index] == 0}">Nessun voto</div>  
 					</form>
-                    <div class="book-actions">  
+                    <div class="book-actions">   
+						    <a th:href="@{/books/{id}(id=${book.id})}">  
+						        <img src="https://img.icons8.com/material-outlined/24/000000/zoom-in.png" alt="View" class="icon-white"/>  
+						    </a>
 							<a th:href="@{/books/edit/{id}(id=${book.id})}">
 								<img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" alt="Edit" class="icon-white"/>
 							</a>

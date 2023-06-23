@@ -1,0 +1,122 @@
+<!DOCTYPE html>  
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">  
+<head>  
+    <title>Book Details</title>  
+    <style>  
+        .book-details-container {  
+            background-color: rgba(255, 255, 255, 0.7);  
+            padding: 20px;  
+            border-radius: 5px;  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            right: 0;  
+            bottom: 0;  
+            overflow: auto;  
+            margin-top: 60px;  
+        } 
+         
+        .book-details {  
+            display: flex;  
+            justify-content: center;  
+            align-items: flex-start;  
+            flex-wrap: wrap;  
+        }  
+  
+        .book-title {  
+            font-weight: bold;  
+            font-size: 24px;  
+            margin-bottom: 20px; 
+            width: 100%;  
+            text-align: center;   
+        }  
+  
+        .book-cover {  
+            width: 40%;  
+            max-width: 300px;  
+            margin-right: 20px;  
+        }  
+  
+        .book-info {  
+            width: 50%;  
+            background-color: white;  
+            padding: 20px;  
+            border-radius: 5px;  
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+        }  
+  
+        .back-to-books-btn {  
+            display: inline-flex;  
+            align-items: center;  
+            text-decoration: none;  
+        }  
+  
+        .back-to-books-icon {  
+            margin-right: 5px;  
+        }  
+        .back-to-books-btn {  
+		    display: inline-flex;  
+		    align-items: center;  
+		    text-decoration: none;  
+		    background-color: #3a6cb3;  
+		    color: white;  
+		    padding: 5px 10px;  
+		    border-radius: 5px;  
+		    margin-top: 20px;  
+		}  
+    </style>  
+</head>  
+<body>  
+    <section layout:fragment="content" class="container book-details-container">  
+        <div class="book-details">  
+            <h1 class="book-title" th:text="${book.title}">Titolo del libro</h1>  
+            <img class="book-cover" th:src="${book.imageUrl}" alt="Copertina del libro" />  
+            <div class="book-info">  
+                <div>Author: <span th:text="${book.author}">Autore</span></div>  
+                <div>Publication Year: <span th:text="${book.publicationYear}">Anno di pubblicazione</span></div>  
+                <div>Genre: <span th:text="${book.genre}">Genere</span></div>  
+				<div class="rating-stars" th:if="${countOfRatings > 0}" th:attr="data-book-rating=${sumOfRatings/countOfRatings}"></div>
+	            <div class="rating-stars" th:if="${countOfRatings == 0}">Nessun voto</div>  
+				<a href="/books" class="back-to-books-btn">  
+				    <span class="back-to-books-icon">&larr;</span> Back to Books  
+				</a> 
+            </div>  
+        </div> 
+		<script>  
+				function handleStarClick(starIndex, element) {   
+				    const rating = starIndex;  
+				    const form = element.parentElement.parentElement;  
+				    form.getElementsByClassName('rating-input')[0].value = rating;
+				    form.submit();  
+				} 
+			  function renderRatingStars(rating) {  
+				    const fullStar = '<span style="color: gold;"';  
+				    const emptyStar = '<span style="color: lightgrey;"';  
+				    const endStar = '>★</span>';
+				    const stars = []; 
+				  
+				    for (let i = 1; i <= 5; i++) { 
+				      completeStar = ''; 
+				      if (i <= Math.round(rating)) {  
+				        completeStar = fullStar + ' onClick="handleStarClick(' + i + ', this)"' + endStar;  
+				      } else {  
+				        completeStar = emptyStar + ' onClick="handleStarClick(' + i + ', this)"' + endStar;
+				      }  
+				      stars.push(completeStar);  
+				    }  
+				  
+				    return stars.join(''); 
+				  }  
+			 function loadAverageRatings() {  
+			    $('.rating-stars').each(function() {  
+			      const averageRating = $(this).data('book-rating'); 
+			      const ratingStars = renderRatingStars(averageRating);  
+        		  $(this).html(ratingStars); 
+			    });   
+			  }
+			  
+			  $(document).ready(loadAverageRatings); 
+			</script>
+    </section>  
+</body>  
+</html>  
