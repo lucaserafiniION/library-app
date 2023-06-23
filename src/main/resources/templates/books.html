@@ -115,7 +115,7 @@
                 Select a genre
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a th:each="genre : ${genres}" th:href="@{/books/search/genre?genre={genre}(genre=${genre})}" th:text="${genre}" style="color:black;"></a>
+                <a th:each="genre : ${genres}" th:href="@{/books/search/genre?genre={genre}(genre=${genre})}" th:text="${genre}" style="color:black;display:block;"></a>
               </div>
             </div>
         </section>
