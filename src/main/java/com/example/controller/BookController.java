@@ -36,6 +36,10 @@ public class BookController {
 	@GetMapping("/{id}")
 	public String getBookById(@PathVariable Long id, Model model) {
 		Book book = bookService.getBookById(id);
+		
+		List<Book> similarBooks = bookService.findSimilarBooks(book);  
+		model.addAttribute("similarBooks", similarBooks);  
+
 
 		model.addAttribute("sumOfRatings", book.getRatings().stream().mapToDouble(Rating::getRating).sum());
 		model.addAttribute("countOfRatings", book.getRatings().size());
