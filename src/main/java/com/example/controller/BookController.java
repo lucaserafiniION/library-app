@@ -58,10 +58,11 @@ public class BookController {
 	}
 
 	@GetMapping
-	public String getAllBooks(Model model) {
+	public String getAllBooks(@RequestParam Map<String, String> params, Model model) {
 		List<Book> allBooks = bookService.getAllBooks();
 
 		addBooksField(model, allBooks);
+		
 		return "books";
 	}
 

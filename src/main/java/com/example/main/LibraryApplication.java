@@ -8,12 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.access.expression.SecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.db.CustomUserDetailsService;
@@ -47,14 +52,15 @@ public class LibraryApplication {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.antMatchers("/register/**").permitAll()
+		http.csrf().disable().authorizeRequests().expressionHandler(webExpressionHandler()).antMatchers("/register/**").permitAll()
 						.antMatchers("/books").permitAll()
 						.antMatchers("/books/search").permitAll()
 						.antMatchers("/books/search/genre").permitAll()
-						.antMatchers("/books/rate").hasAnyRole("ADMIN", "USER")
-						.antMatchers("/books/add").hasAnyRole("ADMIN", "USER")
+						.antMatchers("/books/rate").hasRole("USER")
+						.antMatchers("/books/add").hasRole("USER")
 						.antMatchers("/books/edit/*").hasRole("ADMIN")
-						.antMatchers("/books/delete/*").hasRole("ADMIN"))
+						.antMatchers("/books/delete/*").hasRole("ADMIN")
+						.and()
 				.formLogin(form -> form.loginPage("/login")
 						.loginProcessingUrl("/login")
 						.defaultSuccessUrl("/books")
@@ -62,6 +68,22 @@ public class LibraryApplication {
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll());
 		return http.build();
 	}
+
+	@Bean  
+	public SecurityExpressionHandler<FilterInvocation> webExpressionHandler() {  
+	    DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();  
+	    expressionHandler.setRoleHierarchy(roleHierarchy());  
+	    return expressionHandler;  
+	}  
+	
+    @Bean  
+    public RoleHierarchy roleHierarchy() {  
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();  
+        roleHierarchy.setHierarchy(  
+                "ROLE_ADMIN > ROLE_USER"  
+        );  
+        return roleHierarchy;  
+    }
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

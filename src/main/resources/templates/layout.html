@@ -11,6 +11,7 @@
         body {  
             background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');  
             background-size: cover;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
         }  
   
         .navbar {  
@@ -60,10 +61,19 @@
 			scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 		}  
 		  
-		body {  
-			-ms-overflow-style: -ms-autohiding-scrollbar;
+		.error-popup {  
+		  position: fixed;  
+		  bottom: 20px;  
+		  right: 20px;  
+		  background-color: #f44336;  
+		  color: white;  
+		  text-align: center;  
+		  border-radius: 4px;  
+		  padding: 16px;  
+		  font-size: 17px;  
+		  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);  
+		  z-index: 1000;  
 		}  
-
     </style>  
 </head>  
 <body>  
@@ -77,6 +87,22 @@
             <a sec:authorize="!isAuthenticated()" href="/login">Login</a>  
         </div>  
     </nav>
+    <div id="errorPopup" class="error-popup" style="display:none;">  
+	  <span th:if="${errorMessage}" th:text="${errorMessage}"></span>  
+	</div>    
     <section layout:fragment="content" class="container"></section>  
+    <script>
+    function showErrorPopup() {  
+    	  var popup = document.getElementById("errorPopup");  
+    	  popup.style.display = "block";  
+    	  setTimeout(function() {  
+    	    popup.style.display = "none";  
+    	  }, 3000);
+    	}  
+
+    </script>
+    <script th:if="${errorMessage}">  
+    	showErrorPopup();  
+	</script>
 </body>  
 </html>  
