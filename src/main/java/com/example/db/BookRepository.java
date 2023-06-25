@@ -22,4 +22,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b WHERE (b.genre = :genre OR b.author = :author OR (SELECT COALESCE(AVG(r.rating), 0) FROM Rating r WHERE r.book.id = b.id) >= :minAvgRating) AND b.id != :id")  
     Page<Book> findSimilarBooksByGenreAndAuthorAndMinAvgRating(@Param("genre") String genre, @Param("author") String author, @Param("id") Long id, @Param("minAvgRating") double minAvgRating, Pageable pageable);
+    
+    List<Book> findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(String title, String author); 
 }  

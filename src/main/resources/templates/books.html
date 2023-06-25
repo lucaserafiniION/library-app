@@ -100,12 +100,11 @@
 		    border-radius: 5px;  
 		    margin-top: 20px;   
 		} 
-    </style> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </style>
 	</head>
 	<body>
         <section layout:fragment="searchbox">
-          <form th:action="@{/books/search}" method="get">
+          <form th:action="@{/books/search}" method="get" id="search-form">
                 <input type="text" name="query" id="query" placeholder="Search.."/>
             </form>
         </section>
@@ -180,6 +179,30 @@
         		  $(this).html(ratingStars); 
 			    });   
 			  }
+
+			  $(function() {  
+				    $('#query').autocomplete({  
+				      source: function(request, response) {  
+				        $.ajax({  
+				          url: "/books/search/autocomplete",  
+				          dataType: "json",  
+				          data: {  
+				            term: request.term  
+				          },  
+				          success: function(data) {  
+				            response(data);  
+				          }  
+				        });  
+				      },  
+				      minLength: 2,  
+				      select: function(event, ui) {  
+				          // Imposta il valore dell'input di ricerca al valore selezionato  
+				          $('#query').val(ui.item.value);  
+				          // Invia il form di ricerca  
+				          $('#search-form').submit();  
+				        }  
+				    });  
+				  }); 
 			  
 			  $(document).ready(loadAverageRatings); 
 			</script>

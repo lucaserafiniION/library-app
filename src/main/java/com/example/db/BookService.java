@@ -1,4 +1,5 @@
 package com.example.db;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,18 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();  
     }
+  
+    public List<String> searchAutocomplete(String term) {  
+        List<String> suggestions = new ArrayList<>();  
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCaseOrAuthorContainingIgnoreCase(term, term);  
+  
+        for (Book book : books) {  
+            suggestions.add(book.getTitle());  
+            suggestions.add(book.getAuthor());  
+        }  
+  
+        return suggestions;  
+    } 
     
     public List<Book> findSimilarBooks(Book book){ 
         String genre = book.getGenre();  

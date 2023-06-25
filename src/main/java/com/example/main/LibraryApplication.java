@@ -55,6 +55,7 @@ public class LibraryApplication {
 		http.csrf().disable().authorizeRequests().expressionHandler(webExpressionHandler()).antMatchers("/register/**").permitAll()
 						.antMatchers("/books").permitAll()
 						.antMatchers("/books/search").permitAll()
+						.antMatchers("/books/search/autocomplete").permitAll()
 						.antMatchers("/books/search/genre").permitAll()
 						.antMatchers("/books/rate").hasRole("USER")
 						.antMatchers("/books/add").hasRole("USER")

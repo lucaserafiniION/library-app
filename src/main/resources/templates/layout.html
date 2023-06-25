@@ -3,10 +3,13 @@
 <head>  
     <meta charset="UTF-8"/>  
     <title layout:title-pattern="$CONTENT_TITLE - Library">Library</title>  
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/> 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>  
     <style>  
         body {  
             background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');  
@@ -98,9 +101,8 @@
     	  setTimeout(function() {  
     	    popup.style.display = "none";  
     	  }, 3000);
-    	}  
-
-    </script>
+    	}
+    </script> 
     <script th:if="${errorMessage}">  
     	showErrorPopup();  
 	</script>
