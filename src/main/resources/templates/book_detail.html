@@ -2,123 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">  
 <head>  
     <title>Book Details</title>  
-    <style>  
-        .book-details-container {  
-            background-color: rgba(255, 255, 255, 0.7);  
-            padding: 20px;  
-            border-radius: 5px;  
-            position: fixed;  
-            top: 0;  
-            left: 0;  
-            right: 0;  
-            bottom: 0;  
-            overflow: auto;  
-            margin-top: 60px;  
-        } 
-         
-        .book-details {  
-            display: flex;  
-            justify-content: center;  
-            align-items: flex-start;  
-            flex-wrap: wrap;  
-        }  
-  
-        .book-title {  
-            font-weight: bold;  
-            font-size: 24px;  
-            margin-bottom: 20px; 
-            width: 100%;  
-            text-align: center;   
-        }  
-  
-        .book-cover {  
-            width: 40%;  
-            max-width: 300px;  
-            margin-right: 20px;  
-        }  
-  
-        .book-info {  
-            width: 50%;  
-            background-color: white;  
-            padding: 20px;  
-            border-radius: 5px;  
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
-        }  
-  
-        .back-to-books-btn {  
-            display: inline-flex;  
-            align-items: center;  
-            text-decoration: none;  
-        }  
-  
-        .back-to-books-icon {  
-            margin-right: 5px;  
-        } 
-         
-        .back-to-books-btn {  
-		    display: inline-flex;  
-		    align-items: center;  
-		    text-decoration: none;  
-		    background-color: #3a6cb3;  
-		    color: white;  
-		    padding: 5px 10px;  
-		    border-radius: 5px;  
-		    margin-top: 20px;  
-		}   
-		.similar-book {  
-		    position: relative;  
-		}  
-		  
-		.carousel-caption {  
-		    background-color: rgba(0, 0, 0, 0.5);  
-		    bottom: 60%;  
-		    left: 0;  
-		    right: 0;  
-		    transform: translateY(50%);  
-		    padding: 10px;  
-		    border-radius: 5px;  
-		}  
-		  
-		.book-actions {  
-		    position: absolute;  
-		    bottom: 10px;  
-		    left: 50%;  
-		    transform: translateX(-50%);  
-		} 
-		
-        .icon-white {  
-		    filter: invert(1); /* Inverte i colori dell'immagine */ 
-		    padding: 5px 10px;  
-		    border-radius: 5px;  
-		    margin-top: 20px;   
-		}   
-		
-        .icon-white:hover {  
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
-		    background-color: #3a6cb3;  
-		    color: white;  
-		    padding: 5px 10px;  
-		    border-radius: 5px;  
-		    margin-top: 20px;   
-		} 
-		  
-		.carousel-item img.d-block {  
-		  max-width: 30%; /* Ridimensiona l'immagine del carousel al 60% della sua larghezza originale */  
-		  max-height: 30%; /* Ridimensiona l'immagine del carousel al 60% della sua altezza originale */  
-		  margin: 0 auto; /* Centra l'immagine del carousel orizzontalmente */  
-		} 
-		
-		.carousel-item {
-		  max-height: 200px;
-		}
-    </style>  
 </head>  
 <body>  
     <section layout:fragment="content" class="container book-details-container">  
         <div class="book-details">  
-            <h1 class="book-title" th:text="${book.title}">Titolo del libro</h1>  
+            <h1 class="book-title-details" th:text="${book.title}">Titolo del libro</h1>  
             <img class="book-cover" th:src="${book.imageUrl}" alt="Copertina del libro" />  
-            <div class="book-info">  
+            <div class="book-info-details">  
                 <div>Author: <span th:text="${book.author}">Autore</span></div>  
                 <div>Publication Year: <span th:text="${book.publicationYear}">Anno di pubblicazione</span></div>  
                 <div>Genre: <span th:text="${book.genre}">Genere</span></div>  
@@ -141,7 +31,7 @@
 							        <span class="sr-only">Next</span>  
 							    </a>  
 						    </div>  
-						    <div class="book-actions">  
+						    <div class="book-actions-details">  
 						        <a th:href="@{/books/{id}(id=${similarBook.id})}">  
 						            <img src="https://img.icons8.com/material-outlined/24/000000/zoom-in.png" alt="View" class="icon-white"/>  
 						        </a>  

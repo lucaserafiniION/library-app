@@ -1,0 +1,72 @@
+body {  
+  background-color: #f0f0f0;  
+  color: #333;  
+}  
+  
+.navbar {  
+  background-color: #f8f9fa;  
+  height: 60px; 
+  color: black; 
+}  
+  
+a {  
+  color: #333;  
+}  
+  
+a:hover {  
+  color: grey;  
+  text-decoration: none;  
+}  
+  
+.btn-login {  
+  background-color: #007bff;  
+  border-radius: 5px;  
+  color: white;  
+  padding: 5px 10px;  
+}  
+  
+.btn-login:hover {  
+  background-color: #0056b3;  
+  text-decoration: none;  
+  color: white;  
+}  
+  
+.add-book-btn {  
+  background-color: #007bff;  
+}  
+  
+.add-book-btn:hover {  
+  background-color: #0056b3;  
+}  
+  
+.icon-white:hover {  
+  background-color: #f8f9fa;  
+}  
+  
+.back-to-books-btn {  
+  background-color: #007bff;  
+}  
+  
+.error-popup {  
+  background-color: #f44336;  
+}  
+  
+.book-info {  
+  background: rgba(0, 0, 0, 0.5);  
+}  
+  
+.catalog-container {  
+  background-color: rgba(255, 255, 255, 0.9);  
+}  
+  
+.book-details-container {  
+  background-color: rgba(255, 255, 255, 0.9);  
+}  
+  
+.form-box {  
+  background-color: white;  
+}  
+  
+.carousel-caption {  
+  background-color: rgba(0, 0, 0, 0.5);  
+}  
