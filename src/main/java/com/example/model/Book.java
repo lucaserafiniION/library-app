@@ -76,4 +76,7 @@ public class Book {
 	public void setRatings(Set<Rating> ratings) {
 		this.ratings = ratings;
 	}
+	public double getAvgRating() {
+		return this.ratings.stream().mapToDouble(Rating::getRating).average().orElse(0);
+	}
 }  

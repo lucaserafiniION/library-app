@@ -23,6 +23,7 @@ import com.example.db.UserService;
 import com.example.model.Book;
 import com.example.model.Rating;
 import com.example.model.User;
+import java.util.Comparator;
 
 @Controller
 @RequestMapping("/books")
@@ -65,6 +66,49 @@ public class BookController {
 	@GetMapping
 	public String getAllBooks(@RequestParam Map<String, String> params, Model model) {
 		List<Book> allBooks = bookService.getAllBooks();
+		
+		String criteria = params.get("criteria");
+		String type = params.get("type");
+		if(criteria != null){
+			switch(criteria){
+				case "title": 
+					if(type.equals("asc")){
+						allBooks.sort(Comparator.comparing(Book::getTitle));
+					}else{
+						allBooks.sort(Comparator.comparing(Book::getTitle).reversed());
+					}
+					break;
+				case "genre": 
+					if(type.equals("asc")){
+						allBooks.sort(Comparator.comparing(Book::getGenre));
+					}else{
+						allBooks.sort(Comparator.comparing(Book::getGenre).reversed());
+					}
+					break;
+				case "year":
+					if(type.equals("asc")){
+						allBooks.sort(Comparator.comparing(Book::getPublicationYear));
+					} else {
+						allBooks.sort(Comparator.comparing(Book::getPublicationYear).reversed());
+					}
+					break;
+				case "author":
+					if(type.equals("asc")){
+						allBooks.sort(Comparator.comparing(Book::getAuthor));
+					} else {
+						allBooks.sort(Comparator.comparing(Book::getAuthor).reversed());
+					}
+					break;
+				case "rating":
+					if(type.equals("asc")){
+						allBooks.sort(Comparator.comparing(Book::getAvgRating));
+					} else {
+						allBooks.sort(Comparator.comparing(Book::getAvgRating).reversed());
+					}
+					break;
+					
+			}
+		}
 
 		addBooksField(model, allBooks);
 		model.addAttribute("bookspage","present");

@@ -19,6 +19,25 @@
               </div>
             </div>
         </section>
+        <section layout:fragment="sortbooks">
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select a criteria
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a href="/books?criteria=title&type=asc" class="dropdown-item">Title ascending</a>
+                <a href="/books?criteria=title&type=desc" class="dropdown-item">Title descending</a>
+                <a href="/books?criteria=genre&type=asc" class="dropdown-item">Genre ascending</a>
+                <a href="/books?criteria=genre&type=desc" class="dropdown-item">Genre descending</a>
+                <a href="/books?criteria=year&type=asc" class="dropdown-item">Year ascending</a>
+                <a href="/books?criteria=year&type=desc" class="dropdown-item">Year descending</a>
+                <a href="/books?criteria=author&type=asc" class="dropdown-item">Author ascending</a>
+                <a href="/books?criteria=author&type=desc" class="dropdown-item">Author descending</a>
+                <a href="/books?criteria=rating&type=asc" class="dropdown-item">Rating ascending</a>
+                <a href="/books?criteria=rating&type=desc" class="dropdown-item">Rating descending</a>
+              </div>
+            </div>
+        </section>
 		<section layout:fragment="content" class="container catalog-container">  
 			<div class="book-card-container"> 
             <div th:each="book, iterStat : ${books}" class="book-card" th:style="'background-image: url(' + ${book.imageUrl} + ')'">  
