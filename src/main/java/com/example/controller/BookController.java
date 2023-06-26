@@ -67,6 +67,7 @@ public class BookController {
 		List<Book> allBooks = bookService.getAllBooks();
 
 		addBooksField(model, allBooks);
+		model.addAttribute("bookspage","present");
 		
 		return "books";
 	}
@@ -76,7 +77,7 @@ public class BookController {
 		List<Book> allBooks = bookService.getPopularBooks();
 
 		addBooksField(model, allBooks);
-		model.addAttribute("popular","present");
+		model.addAttribute("popularpage","present");
 		
 		return "/books";
 	}
