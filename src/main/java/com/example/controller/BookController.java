@@ -1,9 +1,16 @@
 package com.example.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +31,7 @@ import com.example.model.Book;
 import com.example.model.Rating;
 import com.example.model.User;
 import java.util.Comparator;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/books")
@@ -145,6 +153,16 @@ public class BookController {
 		model.addAttribute("countOfRatings", countOfRatings);
 		model.addAttribute("books", allBooks);
 		model.addAttribute("genres", genres);
+
+		
+		LocalDate start = LocalDate.of(1980, 1, 1);
+		LocalDate end = LocalDate.now();
+		Period period = Period.between(start, end);
+		int days = period.getDays();
+		Random generator = new Random(days);
+		int randomNumber = (int) (generator.nextInt(allBooks.size()));
+
+        model.addAttribute("bookoftheday", allBooks.get(randomNumber));
 	}
 
 	@GetMapping("/add")
