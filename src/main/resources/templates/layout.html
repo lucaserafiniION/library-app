@@ -17,7 +17,8 @@
 <body>  
     <nav class="navbar navbar-expand-sm">  
         <a class="navbar-brand text-white" href="/">Book Catalog</a>  
-        <a class="text-white ml-2" href="/books">Books</a>  
+        <a class="ml-2" th:classappend="${popular}?'text-white' : 'text-white-selected'" href="/books">Books</a>  
+        <a class="ml-2" th:classappend="${popular}?'text-white-selected' : 'text-white'" href="/books/popular">Popular</a> 
         <div class="ml-auto d-flex">  
             <div class="dropdown">  
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="theme-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  

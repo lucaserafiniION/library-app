@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.db.BookService;
 import com.example.db.RatingService;
@@ -68,6 +69,16 @@ public class BookController {
 		addBooksField(model, allBooks);
 		
 		return "books";
+	}
+	
+	@GetMapping("/popular")
+	public String getPopularBooks(@RequestParam Map<String, String> params, Model model, RedirectAttributes redirectAttributes) {
+		List<Book> allBooks = bookService.getPopularBooks();
+
+		addBooksField(model, allBooks);
+		model.addAttribute("popular","present");
+		
+		return "/books";
 	}
 
 	private void addBooksField(Model model, List<Book> allBooks) {

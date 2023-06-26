@@ -20,6 +20,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT DISTINCT b.genre FROM library.book b", nativeQuery = true)
     List<String> findDistinctGenre();
 
+    @Query(value = "SELECT b.* "
+    		+ "FROM library.book b JOIN library.ratings r ON b.id = r.book_id "
+    		+ "GROUP BY b.id "
+    		+ "ORDER BY avg(r.rating) DESC, count(*) DESC "
+    		+ "LIMIT 3", nativeQuery = true) 
+    List<Book> findPopularBooks();
+
     @Query("SELECT b FROM Book b WHERE (b.genre = :genre OR b.author = :author OR (SELECT COALESCE(AVG(r.rating), 0) FROM Rating r WHERE r.book.id = b.id) >= :minAvgRating) AND b.id != :id")  
     Page<Book> findSimilarBooksByGenreAndAuthorAndMinAvgRating(@Param("genre") String genre, @Param("author") String author, @Param("id") Long id, @Param("minAvgRating") double minAvgRating, Pageable pageable);
     

@@ -18,6 +18,10 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();  
     }
+    
+    public List<Book> getPopularBooks() {
+    	return bookRepository.findPopularBooks();
+    }
   
     public List<String> searchAutocomplete(String term) {  
         List<String> suggestions = new ArrayList<>();  
