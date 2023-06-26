@@ -19,10 +19,15 @@
         <a class="navbar-brand text-white" href="/">Book Catalog</a>  
         <a class="text-white ml-2" href="/books">Books</a>  
         <div class="ml-auto d-flex">  
-            <select id="theme-selector" onchange="changeTheme()">  
-                <option value="light">Tema chiaro</option>  
-                <option value="dark">Tema scuro</option>  
-            </select>  
+            <div class="dropdown">  
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="theme-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  
+                    Choose a theme 
+                </button>  
+                <div class="dropdown-menu" aria-labelledby="theme-selector">  
+                    <a class="dropdown-item" href="#" onclick="setTheme('light')">Light</a>  
+                    <a class="dropdown-item" href="#" onclick="setTheme('dark')">Dark</a>  
+                </div>  
+            </div>
             <section layout:fragment="searcgenre" class="search-box"></section>  
             <section layout:fragment="searchbox" class="search-box"></section>  
             <a sec:authorize="isAuthenticated()" href="/logout">Logout</a> <a  

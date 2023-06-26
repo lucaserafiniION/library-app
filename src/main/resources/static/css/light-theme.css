@@ -1,72 +1,112 @@
-body {  
-  background-color: #f0f0f0;  
-  color: #333;  
-}  
-  
-.navbar {  
-  background-color: #f8f9fa;  
-  height: 60px; 
-  color: black; 
-}  
-  
-a {  
-  color: #333;  
-}  
-  
-a:hover {  
-  color: grey;  
-  text-decoration: none;  
-}  
-  
-.btn-login {  
-  background-color: #007bff;  
-  border-radius: 5px;  
-  color: white;  
-  padding: 5px 10px;  
-}  
-  
-.btn-login:hover {  
-  background-color: #0056b3;  
-  text-decoration: none;  
-  color: white;  
+.book-info {  
+	background: rgba(255, 255, 255, 0.7);  
+	color: black;  
 }  
   
 .add-book-btn {  
-  background-color: #007bff;  
+	background-color: lightblue;  
+	color: white;  
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
 }  
   
 .add-book-btn:hover {  
-  background-color: #0056b3;  
-}  
-  
-.icon-white:hover {  
-  background-color: #f8f9fa;  
-}  
-  
-.back-to-books-btn {  
-  background-color: #007bff;  
-}  
-  
-.error-popup {  
-  background-color: #f44336;  
-}  
-  
-.book-info {  
-  background: rgba(0, 0, 0, 0.5);  
+	color: white;  
+	background-color: dodgerblue;  
 }  
   
 .catalog-container {  
-  background-color: rgba(255, 255, 255, 0.9);  
+	background-color: rgba(255, 255, 255, 0.9);  
+}  
+  
+.icon-white {  
+	filter: invert(0); /* Non inverte i colori dell'immagine */  
+}  
+  
+.icon-white:hover {  
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
+	background-color: #3a6cb3;  
+	color: white;  
 }  
   
 .book-details-container {  
-  background-color: rgba(255, 255, 255, 0.9);  
+	background-color: rgba(255, 255, 255, 0.9);  
 }  
   
-.form-box {  
-  background-color: white;  
+.book-info-details {  
+	background-color: white;  
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);  
+}  
+  
+.back-to-books-btn {  
+	background-color: #3a6cb3;  
+	color: white;  
 }  
   
 .carousel-caption {  
-  background-color: rgba(0, 0, 0, 0.5);  
+	background-color: rgba(255, 255, 255, 0.7);  
+	color: black;  
 }  
+  
+.form-box {  
+	background-color: rgba(255, 255, 255, 0.9);  
+}  
+  
+.navbar {  
+	background-color: #ccc;  
+}  
+  
+a {  
+	color: black;  
+}  
+  
+a:hover {  
+	color: grey;  
+}  
+  
+.btn-login {  
+	background-color: lightblue;  
+	color: white;  
+}  
+  
+.btn-login:hover {  
+	background-color: dodgerblue;  
+	color: white;  
+}  
+  
+::-webkit-scrollbar-thumb {  
+	background-color: rgba(0, 0, 0, 0.2);  
+	border-radius: 20px;  
+}  
+  
+::-webkit-scrollbar-thumb:hover {  
+	background-color: rgba(0, 0, 0, 0.4);  
+}  
+  
+html {  
+	scrollbar-width: thin;  
+	scrollbar-color: rgba(0, 0, 0, 0.2) transparent;  
+}  
+  
+.error-popup {  
+	background-color: #f44336;  
+	color: white;  
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);  
+	z-index: 1000;  
+}  
+
+.carousel-control-prev-icon {  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000' width='16' height='16'%3E%3Cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");  
+}  
+
+.carousel-control-prev:hover .carousel-control-prev-icon {  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23cccccc' width='16' height='16'%3E%3Cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");  
+}  
+
+.carousel-control-next-icon {  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000' width='16' height='16'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");  
+}  
+  
+.carousel-control-next:hover .carousel-control-next-icon {  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23cccccc' width='16' height='16'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");  
+}  
+ 
