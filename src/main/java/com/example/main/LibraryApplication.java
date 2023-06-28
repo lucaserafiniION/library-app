@@ -21,7 +21,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.example.db.CustomAuthenticationProvider;
 import com.example.db.CustomUserDetailsService;
+import com.example.db.CustomWebAuthenticationDetailsSource;
 import com.example.db.UserRepository;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
@@ -34,7 +36,9 @@ import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 @EnableWebSecurity
 public class LibraryApplication {
     @Autowired  
-    private UserRepository userRepository; 
+    private UserRepository userRepository;
+    private CustomWebAuthenticationDetailsSource authenticationDetailsSource = new CustomWebAuthenticationDetailsSource();
+    private CustomAuthenticationProvider authenticationProvider;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryApplication.class, args);
@@ -63,7 +67,8 @@ public class LibraryApplication {
 						.antMatchers("/books/delete/*").hasRole("ADMIN")
 						.and()
 				.formLogin(form -> form.loginPage("/login")
-						.loginProcessingUrl("/login")
+						.authenticationDetailsSource(authenticationDetailsSource)
+						.loginProcessingUrl("/login/process")
 						.defaultSuccessUrl("/books")
 						.permitAll())
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll());
@@ -88,6 +93,7 @@ public class LibraryApplication {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new CustomUserDetailsService(userRepository)).passwordEncoder(passwordEncoder());
+		authenticationProvider = new CustomAuthenticationProvider(new CustomUserDetailsService(userRepository), passwordEncoder());
+		auth.authenticationProvider(authenticationProvider);
 	}
 }

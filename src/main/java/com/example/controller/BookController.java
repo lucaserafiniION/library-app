@@ -1,12 +1,8 @@
 package com.example.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +27,6 @@ import com.example.model.Book;
 import com.example.model.Rating;
 import com.example.model.User;
 import java.util.Comparator;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/books")
@@ -162,7 +157,7 @@ public class BookController {
 		Random generator = new Random(days);
 		int randomNumber = (int) (generator.nextInt(allBooks.size()));
 
-        model.addAttribute("bookoftheday", allBooks.get(randomNumber));
+        model.addAttribute("bookoftheday", bookService.getAllBooks().get(randomNumber));
 	}
 
 	@GetMapping("/add")

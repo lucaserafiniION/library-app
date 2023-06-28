@@ -24,8 +24,28 @@ public class User {
     private String password;
     
     private String role = "ROLE_USER";
+
+	private boolean mfaEnabled = true;
+
+	private String secret;
+
+	public boolean isMfaEnabled() {
+		return mfaEnabled;
+	}
+
+	public void setMfaEnabled(boolean mfaEnabled) {
+		this.mfaEnabled = mfaEnabled;
+	}
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)  
+    public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)  
     private Set<Rating> ratings = new HashSet<>();
 
 	public Long getId() {

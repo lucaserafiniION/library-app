@@ -5,34 +5,44 @@
 	</head>
 	<body>
 		<section layout:fragment="content" class="container catalog-container">  
-			<div class="row col-md-8 offset-md-2">
-				<div class="card">
-					<div class="card-header">
-						<h2 class="text-center">Registration</h2>
-					</div>
-					<div th:if="${param.success}">
-						<div class="alert alert-info">
-				            You have successfully registered our app!
-				        </div>
-				    </div>
-					<div class="card-body">
-						<form th:action="@{/register/save}" th:object="${user}" method="post">
-							<div class="form-group mb-3">
-								<label class="form-label">Email</label>
-								<input class="form-control" id="email" name="email" placeholder="Enter email address" th:field="*{email}" type="text"/>
-								<p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"/>
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card">
+						<div class="card-header">
+							<h2 class="text-center">Registration</h2>
+						</div>
+						<div th:if="${param.success}">
+							<div class="alert alert-info">
+								You have successfully registered our app!
 							</div>
-							<div class="form-group mb-3">
-								<label class="form-label">Password</label>
-								<input class="form-control" id="password" name="password" placeholder="Enter password" th:field="*{password}" type="password"/>
-								<p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}"/>
+						</div>
+						<div th:if="${failure}">
+							<div class="alert alert-info" th:text="${failure}">
 							</div>
-							<div class="form-group">
-								<button class="btn btn-primary" type="submit">Register</button>
-								<span>Already registered? <a th:href="@{/login}">Login here</a>
-								</span>
-							</div>
-						</form>
+						</div>
+						<div th:if="!${qrCode}" class="card-body">
+							<form th:action="@{/register/save}" th:object="${user}" method="post">
+								<div class="form-group mb-3">
+									<label class="form-label">Email</label>
+									<input class="form-control" id="email" name="email" placeholder="Enter email address" th:field="*{email}" type="text"/>
+									<p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"/>
+								</div>
+								<div class="form-group mb-3">
+									<label class="form-label">Password</label>
+									<input class="form-control" id="password" name="password" placeholder="Enter password" th:field="*{password}" type="password"/>
+									<p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}"/>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary" type="submit">Register</button>
+								</div>
+							</form>
+						</div>
+						<div th:if="${qrCode}">
+							<img class="col-md-12" th:src="${qrCode}" />
+							<p th:text="${qrCodeKey}"></p>
+						</div>
+						<span>Already registered? <a th:href="@{/login}" class="text-black">Login here</a>
+						</span>
 					</div>
 				</div>
 			</div>
